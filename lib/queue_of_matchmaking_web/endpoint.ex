@@ -47,5 +47,7 @@ defmodule QueueOfMatchmakingWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug QueueOfMatchmakingWeb.Router
+
+  plug Absinthe.Plug,
+    schema: QueueOfMatchmakingWeb.Schema
 end
