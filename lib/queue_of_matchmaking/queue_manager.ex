@@ -15,12 +15,6 @@ defmodule QueueOfMatchmaking.QueueManager do
 
   @doc """
   Adds a matchmaking request to the queue.
-
-  This is the main entry point. It will atomically:
-  1. Check if the user is already in the queue.
-  2. If not, try to find an immediate match.
-  3. If a match is found, publish the match and return `:matched`.
-  4. If no match is found, add the user to the queue and return `:enqueued`.
   """
   def add_request(user_id, rank) do
     GenServer.call(__MODULE__, {:add_request, user_id, rank}, 30_000)
