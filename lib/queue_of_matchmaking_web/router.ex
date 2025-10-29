@@ -10,7 +10,8 @@ defmodule QueueOfMatchmakingWeb.Router do
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
       schema: QueueOfMatchmakingWeb.Schema,
-      interface: :simple
+      socket: QueueOfMatchmakingWeb.UserSocket,
+      interface: :playground
 
     forward "/", Absinthe.Plug,
       schema: QueueOfMatchmakingWeb.Schema

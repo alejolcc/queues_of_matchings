@@ -33,23 +33,22 @@ defmodule QueueOfMatchmakingWeb.Schema do
   # ---
   # Subscription
   # ---
-  @desc "The root subscription type"
-  object :subscription do
-    @desc "Notifies a user when a match is found"
-    field :match_found, :match_payload do
-      arg(:user_id, non_null(:string))
+  # subscription do
+  #   @desc "Notifies a user when a match is found"
+  #   field :match_found, :match_payload do
+  #     arg(:user_id, non_null(:string))
 
-      # Configure the subscription to use the user_id as a dynamic topic.
-      # This ensures a user only gets *their own* match notifications.
-      config(fn args, _ ->
-        {:ok, topic: "match_found:#{args.user_id}"}
-      end)
+  #     # Configure the subscription to use the user_id as a dynamic topic.
+  #     # This ensures a user only gets *their own* match notifications.
+  #     config(fn args, _ ->
+  #       {:ok, topic: "match_found:#{args.user_id}"}
+  #     end)
 
-      # The resolver just passes the payload through.
-      # The "publishing" is done in the QueueManager.
-      resolve(fn payload, _, _ ->
-        {:ok, payload}
-      end)
-    end
-  end
+  #     # The resolver just passes the payload through.
+  #     # The "publishing" is done in the QueueManager.
+  #     resolve(fn payload, _, _ ->
+  #       {:ok, payload}
+  #     end)
+  #   end
+  # end
 end

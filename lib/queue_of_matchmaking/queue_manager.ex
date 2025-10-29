@@ -5,6 +5,8 @@ defmodule QueueOfMatchmaking.QueueManager do
   use GenServer
   alias QueueOfMatchmaking.Tree
 
+  @endpoint QueueOfMatchmakingWeb.Endpoint
+
   # ------------------------------------------------------------------
   # Client API
   # ------------------------------------------------------------------
@@ -170,9 +172,18 @@ defmodule QueueOfMatchmaking.QueueManager do
   end
 
   # Publishes the match payload to Absinthe subscriptions for *both* users.
-  defp publish_match(user_id1, rank1, user_id2, rank2) do
-    IO.inspect("Match found")
-    IO.inspect({user_id1, rank1})
-    IO.inspect({user_id2, rank2})
+  defp publish_match(p1_id, p1_rank, p2_id, p2_rank) do
+    payload = %{
+      users: [
+        %{user_id: p1_id, user_rank: p1_rank},
+        %{user_id: p2_id, user_rank: p2_rank}
+      ]
+    }
+
+    # Publish to the first user's unique topic
+    Absinthe.Subscription.publish(@endpoint, payload, match_found: "match_found:#{p1_id}")
+
+    # Publish the *same* payload to the second user's unique topic
+    Absinthe.Subscription.publish(@endpoint, payload, match_found: "match_found:#{p2_id}")
   end
 end
