@@ -12,9 +12,9 @@ defmodule QueueOfMatchmakingWeb.Endpoint do
     same_site: "Lax"
   ]
 
-  # socket "/socket", QueueOfMatchmakingWeb.UserSocket,
-  #   websocket: true,
-  #   longpoll: false
+socket "/socket", Absinthe.Phoenix.Socket,
+  socket_path: "/socket",
+  interface: :graphql
 
   # socket "/live", Phoenix.LiveView.Socket,
   #   websocket: [connect_info: [session: @session_options]],
@@ -52,7 +52,5 @@ defmodule QueueOfMatchmakingWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-
-  plug Absinthe.Plug,
-    schema: QueueOfMatchmakingWeb.Schema
+  plug QueueOfMatchmakingWeb.Router
 end

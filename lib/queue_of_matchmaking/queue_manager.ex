@@ -180,6 +180,7 @@ defmodule QueueOfMatchmaking.QueueManager do
       ]
     }
 
+    dbg()
     # Publish to the first user's unique topic
     Absinthe.Subscription.publish(@endpoint, payload, match_found: "match_found:#{p1_id}")
 

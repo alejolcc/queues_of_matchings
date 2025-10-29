@@ -13,8 +13,7 @@ config :queue_of_matchmaking, QueueOfMatchmakingWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "ULP+bR6U9Lwwjrtak76WpLGTfrB5lJ+93S+h3H3719EVOxFaGQYmdnWI4aIp6c6d",
-  watchers: []
+  secret_key_base: "ULP+bR6U9Lwwjrtak76WpLGTfrB5lJ+93S+h3H3719EVOxFaGQYmdnWI4aIp6c6d"
 
 # ## SSL Support
 #

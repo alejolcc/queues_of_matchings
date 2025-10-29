@@ -41,7 +41,9 @@ defmodule QueueOfMatchmaking.MixProject do
     [
       {:tidewave, "~> 0.5", only: [:dev]},
       {:igniter, "~> 0.6", only: [:dev, :test]},
+      {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:phoenix, "~> 1.8.0"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:jason, "~> 1.2"},
