@@ -14,6 +14,7 @@ defmodule QueueOfMatchmaking.Application do
       # Start a worker by calling: QueueOfMatchmaking.Worker.start_link(arg)
       # {QueueOfMatchmaking.Worker, arg},
       # Start to serve requests, typically the last entry
+      QueueOfMatchmaking.QueueManager,
       QueueOfMatchmakingWeb.Endpoint
     ]
 
