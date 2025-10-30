@@ -9,13 +9,11 @@ defmodule QueueOfMatchmaking.Application do
   def start(_type, _args) do
     children = [
       QueueOfMatchmakingWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:queue_of_matchmaking, :dns_cluster_query) || :ignore},
+      {DNSCluster,
+       query: Application.get_env(:queue_of_matchmaking, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: QueueOfMatchmaking.PubSub},
-      # Start a worker by calling: QueueOfMatchmaking.Worker.start_link(arg)
-      # {QueueOfMatchmaking.Worker, arg},
-      # Start to serve requests, typically the last entry
+      QueueOfMatchmaking.Queues.Supervisor,
       QueueOfMatchmakingWeb.Endpoint,
-      QueueOfMatchmaking.QueueManager,
       {Absinthe.Subscription, QueueOfMatchmakingWeb.Endpoint}
     ]
 

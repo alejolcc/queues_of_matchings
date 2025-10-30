@@ -1,4 +1,4 @@
-defmodule QueueOfMatchmaking.QueueManager do
+defmodule QueueOfMatchmaking.Queues.QueueManager do
   @moduledoc """
   GenServer to manages the state of the matchmaking queue.
   """
@@ -12,14 +12,17 @@ defmodule QueueOfMatchmaking.QueueManager do
   # ------------------------------------------------------------------
 
   def start_link(opts) do
-    GenServer.start_link(__MODULE__, opts, name: __MODULE__)
+    shard_id = Keyword.fetch!(opts, :shard_id)
+    name = {:via, Registry, {ShardsRegistry, "shard_#{shard_id}"}}
+    GenServer.start_link(__MODULE__, opts, name: name)
   end
 
   @doc """
   Adds a matchmaking request to the queue.
   """
-  def add_request(user_id, rank) do
-    GenServer.call(__MODULE__, {:add_request, user_id, rank}, 30_000)
+  def add_request(user_id, rank, shard_id) do
+    name = {:via, Registry, {ShardsRegistry, shard_id}}
+    GenServer.call(name, {:add_request, user_id, rank}, 30_000)
   end
 
   # ------------------------------------------------------------------
